@@ -19,3 +19,5 @@ services:
       - db
     links:
       - "db:database"
+    env_file:
+      - .env.local

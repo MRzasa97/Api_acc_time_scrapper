@@ -1,11 +1,11 @@
 package tools
 
-type BestTime struct {
-	CarModel string `json:"car_model"`
-	BestTime string `json:"best_time"`
-}
-
 type DatabaseInterface interface {
 	Create(bt BestTime) error
 	GetAll() ([]BestTime, error)
+}
+
+type UserDatabaseInterface interface {
+	CreateUser(user User) error
+	GetUser(username string) (User, error)
 }

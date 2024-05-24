@@ -8,7 +8,9 @@ import (
 )
 
 type Env struct {
-	db tools.DatabaseInterface
+	db     tools.DatabaseInterface
+	userDB tools.UserDatabaseInterface
+	jwt    []byte
 }
 
 func (env *Env) CreateRecord(w http.ResponseWriter, r *http.Request) {
@@ -37,7 +39,9 @@ func (env *Env) GetAllRecords(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(records)
 }
 
-func (env *Env) InitEnv(db tools.DatabaseInterface) *Env {
+func (env *Env) InitEnv(db tools.DatabaseInterface, userDB tools.UserDatabaseInterface, jwt []byte) *Env {
 	env.db = db
+	env.userDB = userDB
+	env.jwt = jwt
 	return env
 }

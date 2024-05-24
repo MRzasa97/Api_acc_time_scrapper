@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/MRzasa97/Api_acc_time_scrapper/internal/handlers"
 	"github.com/MRzasa97/Api_acc_time_scrapper/internal/tools"
@@ -14,10 +15,19 @@ type Message struct {
 	Text string
 }
 
+func getJwtKey() []byte {
+	jwtSecret := os.Getenv("JWT_SECRET_KEY")
+	if jwtSecret == "" {
+		log.Fatal("No JWT_SECRET_KEY variable in env file")
+	}
+	return []byte(jwtSecret)
+}
+
 func main() {
 	db := tools.InitMockDB()
 	env := &handlers.Env{}
-	env.InitEnv(db)
+	jwtKey := getJwtKey()
+	env.InitEnv(db, db, jwtKey)
 
 	var router *chi.Mux = chi.NewRouter()
 	fmt.Println("Starting GO API service...")
