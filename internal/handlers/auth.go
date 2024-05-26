@@ -56,6 +56,7 @@ func (env *Env) Login(w http.ResponseWriter, r *http.Request) {
 		log.Print("Internal server error credentials")
 		return
 	}
+	log.Printf("new login request: %s, %s", credentials.Username, credentials.Password)
 
 	user, err := env.userDB.GetUser(credentials.Username)
 	if err != nil {
