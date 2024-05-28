@@ -1,8 +1,10 @@
 package tools
 
 type DatabaseInterface interface {
-	Create(bt BestTime) error
+	Create(BestTime, int) error
 	GetAll() ([]BestTime, error)
+	GetTrack(string) (Track, error)
+	CreateTrack(string) (Track, error)
 }
 
 type UserDatabaseInterface interface {

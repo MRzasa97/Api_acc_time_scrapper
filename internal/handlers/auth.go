@@ -17,7 +17,7 @@ type Credentials struct {
 }
 
 type Claims struct {
-	Username string `json:"username"`
+	UserID int `json:"user_id"`
 	jwt.RegisteredClaims
 }
 
@@ -71,7 +71,7 @@ func (env *Env) Login(w http.ResponseWriter, r *http.Request) {
 
 	expirationTime := time.Now().Add(5 * time.Minute)
 	claims := &Claims{
-		Username: credentials.Username,
+		UserID: user.ID,
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(expirationTime),
 		},
@@ -90,7 +90,6 @@ func (env *Env) Login(w http.ResponseWriter, r *http.Request) {
 		Value:   tokenString,
 		Expires: expirationTime,
 	})
-
 	json.NewEncoder(w).Encode(map[string]string{"message": "Logged in!"})
 
 }

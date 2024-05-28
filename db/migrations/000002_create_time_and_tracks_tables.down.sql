@@ -1,0 +1,3 @@
+DROP TABLE IF EXISTS best_times;
+
+DROP TABLE IF EXISTS tracks;

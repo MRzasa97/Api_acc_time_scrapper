@@ -24,14 +24,14 @@ func getJwtKey() []byte {
 }
 
 func main() {
-	db := tools.InitMockDB()
 	dbUser, err := tools.NewPostgresUserDB("postgresql://myuser:mypassword@db/mydatabase?sslmode=disable")
 	if err != nil {
 		log.Fatalf("error: %v", err)
 	}
+	db := dbUser
 	env := &handlers.Env{}
-	jwtKey := getJwtKey()
-	env.InitEnv(db, dbUser, jwtKey)
+	jwtSecret := getJwtKey()
+	env.InitEnv(db, dbUser, jwtSecret)
 
 	var router *chi.Mux = chi.NewRouter()
 	fmt.Println("Starting GO API service...")

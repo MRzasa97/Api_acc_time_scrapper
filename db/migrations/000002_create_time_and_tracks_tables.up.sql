@@ -1,0 +1,17 @@
+
+CREATE TABLE tracks (
+    id SERIAL PRIMARY KEY,
+    track_name VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE best_times(
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    car VARCHAR(100) NOT NULL,
+    track_id INTEGER NOT NULL,
+    best_time VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (track_id) REFERENCES tracks(id),
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
